@@ -46,4 +46,8 @@ class FlightDealsSpider(scrapy.Spider):
 			item['destinationCities']		= self.parseCities(item['postTitle'][0])
 			item['link']					= deal.xpath('a/@href').extract()
 			yield item
+		next_page = response.xpath("//p/a[@class='next-page']/@href")
+		if next_page:
+			url = response.urljoin(next_page[0].extract())
+			yield scrapy.Request(url, self.parse)
 
