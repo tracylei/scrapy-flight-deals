@@ -10,4 +10,5 @@ class FlightDealItem(scrapy.Item):
     cost					= scrapy.Field()
     destinationCountries	= scrapy.Field()
     destinationCities		= scrapy.Field()
+    numDestinations			= scrapy.Field()
     link					= scrapy.Field()
