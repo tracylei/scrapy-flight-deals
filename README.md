@@ -1,5 +1,4 @@
-# scrapy-flight-deals
-Crawls yyzdeals for past flight deals.
+Crawl yyzdeals for past flight deals.
 
 To start the spider, run
 ```
