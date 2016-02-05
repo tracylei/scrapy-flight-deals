@@ -14,14 +14,14 @@ class FlightDealsSpider(scrapy.Spider):
 				return int(word[1:])
 
 	def parse(self, response):
-		for deal in response.xpath('//div[@id="contentleft"]//h1'):
+		for deal in response.xpath('//div[@id="contentleft"]/h1'):
 			item = FlightDealItem()
 			item['postTitle']	= deal.xpath('a/text()').extract()
 			item['postDay']		= deal.xpath('div[@class="cal"]/span[@class="calday"]/text()').extract()
 			item['postMonth']	= deal.xpath('div[@class="cal"]/span[@class="calmonth"]/text()').extract()
 			item['postYear']	= deal.xpath('div[@class="cal"]/span[@class="calyear"]/text()').extract()
-    		item['cost']			= self.parseCost(item['postTitle'])
-    		item['destinations']	= item['postTitle']
-    		item['link']		= deal.xpath('a/@href').extract()
-    		yield item
+			item['cost']			= self.parseCost(item['postTitle'])
+			item['destinations']	= item['postTitle']
+			item['link']		= deal.xpath('a/@href').extract()
+			yield item
 
