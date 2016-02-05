@@ -43,7 +43,7 @@ class FlightDealsSpider(scrapy.Spider):
 				orExists = 1
 		if orExists:
 			return 1
-		return max(len(cities), len(countries))
+		return max(len(cities), len(countries)))
 
 	def parse (self, response):
 		for deal in response.xpath('//div[@id="contentleft"]/h1'):
@@ -61,5 +61,7 @@ class FlightDealsSpider(scrapy.Spider):
 															item['postTitle'][0])
 			item['link']					= deal.xpath('a/@href').extract()
 			yield item
-		
-
+		next_page = response.xpath("//p/a[@class='next-page']/@href")
+		if next_page:
+			url = response.urljoin(next_page[0].extract())
+			yield scrapy.Request(url, self.parse)
